@@ -1,3 +1,4 @@
+import SidebarComponent from "components/Sidebar";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
 
@@ -13,9 +14,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isLogged = true;
+
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={"dark"}>
+        {isLogged && <SidebarComponent></SidebarComponent>}
         {children}
       </body>
     </html>

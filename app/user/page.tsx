@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,39 +17,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Ghost, Plus } from "lucide-react";
+import { Edit, Plus, X } from "lucide-react";
+import FormUser from "./form";
+import AlertComponent from "@/components/Alert";
 
 const UserPage = () => {
   const invoices = [
     {
       invoice: "Thiago",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
     },
     {
       invoice: "Priscila",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
     },
     {
       invoice: "Rosana",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
     },
     {
       invoice: "Pricylla",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
     },
     {
       invoice: "Jéssica",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
     },
   ];
 
@@ -56,7 +44,12 @@ const UserPage = () => {
     <Card>
       <CardHeader>
         <CardTitle className="flex flex-row justify-between">
-          Usuários <Button className="p-0 m-0 h-6 w-6" ><Plus className="rounded border"></Plus></Button>
+          Usuários
+          <FormUser name="Novo Usuário">
+            <Button className="p-0 m-0 h-6 w-6 mr-2">
+              <Plus className="p-0 m-0 h-6 w-6" />
+            </Button>
+          </FormUser>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -74,7 +67,21 @@ const UserPage = () => {
                 <TableCell className="font-medium p-1">
                   {invoice.invoice}
                 </TableCell>
-                <TableCell className="font-medium p-1"> Editar / [X]</TableCell>
+                <TableCell className="font-medium p-1 text-right">
+                  <FormUser name={invoice.invoice}>
+                    <Button
+                      variant={"secondary"}
+                      className="p-0 m-0 h-4 w-4 mr-2"
+                    >
+                      <Edit className="rounded border h-4 w-4"></Edit>
+                    </Button>
+                  </FormUser>
+                  <AlertComponent alertDialogTitle={'Tem certeza?'} alertDialogDescription={'O Usuário será deletado'} cancel={"Cancelar"} continue={"Sim"} >
+                  <Button variant={"destructive"} className="p-0 m-0 h-4 w-4">
+                    <X className="rounded border h-4 w-4"></X>
+                  </Button>
+                  </AlertComponent>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

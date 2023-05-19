@@ -1,7 +1,13 @@
 "use client";
-
+//NEXT
+import Image from "next/image";
+//REACT
 import { useState } from "react";
-import { MyLabel, MyButton, MyInput, MyCard } from "../../../components/ui";
+//UI
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,22 +27,22 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <MyCard.Card className="w-[350px]">
-        <MyCard.CardHeader className="items-center">
-          <MyCard.CardTitle>LOGIN</MyCard.CardTitle>
-          <MyCard.CardDescription>Acesse seus negócios</MyCard.CardDescription>
-        </MyCard.CardHeader>
-        <MyCard.CardContent>
+      <Card className="border-none" >
+        <CardHeader className="items-center">
+        <Image src={"/images/MyBusiness.png"} alt={"myBusinessLogo"} width={200} height={150} className="pb-10"></Image>
+          <CardTitle>LOGIN</CardTitle>
+          <CardDescription>Acesse seus negócios</CardDescription>
+        </CardHeader>
+        <CardContent>
           <form>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <MyLabel.Label htmlFor="email">E-mail</MyLabel.Label>
-                <MyInput.Input id="email" placeholder="Seu E-mail" />
+                <Label htmlFor="email">E-mail</Label>
+                <Input id="email" placeholder="Seu E-mail" />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <MyLabel.Label htmlFor="password">Password</MyLabel.Label>
-                <MyInput.Input
+                <Label htmlFor="password">Password</Label>
+                <Input
                   id="password"
                   placeholder="Sua Senha"
                   type="password"
@@ -44,12 +50,11 @@ const Login = () => {
               </div>
             </div>
           </form>
-        </MyCard.CardContent>
-        <MyCard.CardFooter className="flex justify-center">
-          <MyButton.Button className="w-full">Deploy</MyButton.Button>
-        </MyCard.CardFooter>
-      </MyCard.Card>
-    </div>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <Button className="w-full mt-20">Deploy</Button>
+        </CardFooter>
+        </Card>
   );
 };
 

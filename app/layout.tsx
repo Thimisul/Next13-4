@@ -1,6 +1,7 @@
 import SidebarComponent from "components/Sidebar";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
+import Login from "./user/login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,16 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={"dark"}>
-        {isLogged && <SidebarComponent></SidebarComponent>}
-        {children}
+      <body suppressHydrationWarning={true} className={"dark flex  items-center justify-center"}>
+        {isLogged ? (
+          <div className="w-[350px]">
+            <SidebarComponent /> {children}
+          </div>
+        ) : (
+          <div className="w-[350px] ">
+            <Login />
+          </div>
+        )}
       </body>
     </html>
   );

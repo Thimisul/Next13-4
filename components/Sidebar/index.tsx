@@ -1,60 +1,79 @@
-import { MyButton, MyLabel, MyInput, MySheet } from "../ui";
-import { ArrowDownUp, Menu, Users } from "lucide-react";
+//Next components
+import Link from 'next/link';
+// UI
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
+import { Button } from '../ui/button';
+//Icons
+import { ArrowDownUp, Building2, Menu, Users } from "lucide-react";
+
+type data = {
+  description: string;
+  icon: string;
+  svgIcon: string;
+}[]
+
+const fetchSidebar = async function () {
+    const res = await fetch("api/sidebar");
+    const menuList : data = await res.json();
+    return menuList
+}
 
 const SidebarComponent = () => {
   return (
     <div className="flex flex-col space-y-8">
-      <MySheet.Sheet>
-        <MySheet.SheetTrigger asChild>
-          <MyButton.Button variant={"link"} className="h-12 w-12">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant={"link"} className="h-12 w-12">
             <Menu size={50}></Menu>
-          </MyButton.Button>
-        </MySheet.SheetTrigger>
+          </Button>
+        </SheetTrigger>
 
-        <MySheet.SheetContent
+        <SheetContent
           className="pt-0 px-0"
           position={"left"}
           size="lg"
         >
-          <MySheet.SheetHeader className=" p-3">
-            <MySheet.SheetTitle>MENU</MySheet.SheetTitle>
-          </MySheet.SheetHeader>
+          <SheetHeader className=" p-3">
+            <SheetTitle>MENU</SheetTitle>
+          </SheetHeader>
 
-          <MySheet.SheetDescription>
-            <MyButton.Button
+          <SheetDescription>
+            <Button
               className="rounded-none align-middle w-full justify-start"
               variant={"ghost"}
             >
-              <Menu className="mr-2 h-4 w-4" />
-              <span>Business</span>
-            </MyButton.Button>
-          </MySheet.SheetDescription>
+              <Building2 className="mr-2 h-4 w-4" />
+              <span>Negócios</span>
+            </Button>
+          </SheetDescription>
 
-          <MySheet.SheetDescription>
-            <MyButton.Button
+          <SheetDescription>
+            <Button
               className="rounded-none align-middle w-full justify-start"
               variant={"ghost"}
             >
               <Users className="mr-2 h-4 w-4" />
               <span>Usuários</span>
-            </MyButton.Button>
-          </MySheet.SheetDescription>
+            </Button>
+          </SheetDescription>
 
-          <MySheet.SheetDescription>
-            <MyButton.Button
+          <SheetDescription>
+            <Link href={'/user'}>
+            <Button
               className="rounded-none align-middle w-full justify-start"
               variant={"ghost"}
             >
               <ArrowDownUp className="mr-2 h-4 w-4" />
               <span>Transações</span>
-            </MyButton.Button>
-          </MySheet.SheetDescription>
+            </Button>
+            </Link>
+          </SheetDescription>
 
-          {/* <MySheet.SheetFooter>
-            <MyButton.Button type="submit">Save changes</MyButton.Button>
-          </MySheet.SheetFooter> */}
-        </MySheet.SheetContent>
-      </MySheet.Sheet>
+          {/* <Sheet.SheetFooter>
+            <Button.Button type="submit">Save changes</Button.Button>
+          </Sheet.SheetFooter> */}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };

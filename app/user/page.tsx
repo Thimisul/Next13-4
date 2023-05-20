@@ -45,7 +45,7 @@ const UserPage = () => {
       <CardHeader>
         <CardTitle className="flex flex-row justify-between">
           Usuários
-          <FormUser name="Novo Usuário">
+          <FormUser type="new" name="Novo Usuário">
             <Button className="p-0 m-0 h-6 w-6 mr-2">
               <Plus className="p-0 m-0 h-6 w-6" />
             </Button>
@@ -68,7 +68,7 @@ const UserPage = () => {
                   {invoice.invoice}
                 </TableCell>
                 <TableCell className="font-medium p-1 text-right">
-                  <FormUser name={invoice.invoice}>
+                  <FormUser type="edit" name={invoice.invoice}>
                     <Button
                       variant={"secondary"}
                       className="p-0 m-0 h-4 w-4 mr-2"
@@ -76,7 +76,7 @@ const UserPage = () => {
                       <Edit className="rounded border h-4 w-4"></Edit>
                     </Button>
                   </FormUser>
-                  <AlertComponent alertDialogTitle={'Tem certeza?'} alertDialogDescription={'O Usuário será deletado'} cancel={"Cancelar"} continue={"Sim"} >
+                  <AlertComponent alertDialogTitle={'Tem certeza?'} alertDialogDescription={`O Usuário ${invoice.invoice} será deletado!`} cancel={"Cancelar"} continue={"Sim"} >
                   <Button variant={"destructive"} className="p-0 m-0 h-4 w-4">
                     <X className="rounded border h-4 w-4"></X>
                   </Button>

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 type userType = {
   children: React.ReactNode;
   name: string;
+  type: 'edit' | 'new'
 };
 
 const FormUser = (props: userType) => {
@@ -29,9 +30,9 @@ const FormUser = (props: userType) => {
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              Nome
             </Label>
-            <Input id="name" value="" className="col-span-3" />
+            <Input id="name" defaultValue={props.type == 'new' ? '' : props.name} className="col-span-3" onChange={e => console.log(e.target.value)}/>
           </div>
         </div>
         <DialogFooter>

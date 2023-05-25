@@ -64,16 +64,6 @@ const SidebarComponent = () => {
             </Link>
           </SheetDescription>
 
-          <SheetDescription>
-            <Button
-              className="rounded-none align-middle w-full justify-start"
-              variant={"ghost"}
-            >
-              <ArrowDownUp className="mr-2 h-4 w-4" />
-              <span>Transações</span>
-            </Button>
-          </SheetDescription>
-
           {/* <Sheet.SheetFooter>
             <Button.Button type="submit">Save changes</Button.Button>
           </Sheet.SheetFooter> */}

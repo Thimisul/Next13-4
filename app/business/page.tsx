@@ -16,27 +16,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Edit, Plus, X } from "lucide-react";
+import { ArrowBigLeft, Edit, Plus, StepBack, X } from "lucide-react";
 import FormBusiness from "./form";
 import AlertComponent from "@/components/Alert";
+import Link from "next/link";
 
 const BusinessPage = () => {
   const businessList = [
     {
-        name: "JD",
-        initialValue: '',
-        businessFather: '',
-        owner: 'Thiago'
+      name: "JD",
+      initialValue: "",
+      businessFather: "",
+      owner: "Thiago",
     },
     {
-        name: "Sala 1",
-        initialValue: '',
-        businessFather: '1'
+      name: "Sala 1",
+      initialValue: "",
+      businessFather: "1",
     },
     {
-        name: "Sala 2",
-        initialValue: '',
-        businessFather: '1'
+      name: "Sala 2",
+      initialValue: "",
+      businessFather: "1",
     },
   ];
 
@@ -44,6 +45,9 @@ const BusinessPage = () => {
     <Card>
       <CardHeader>
         <CardTitle className="flex flex-row justify-between ">
+          <Link href={"/"}>
+          <ArrowBigLeft className="w-6 h-6"></ArrowBigLeft>
+          </Link>
           Negócios
           <FormBusiness type="new" name="Novo Negócio">
             <Button className="p-0 m-0 h-6 w-6 mr-2 ">
@@ -65,10 +69,16 @@ const BusinessPage = () => {
             {businessList.map((business) => (
               <TableRow key={business.name}>
                 <TableCell className="font-medium p-1">
-                  {business.name}
+                  <Link href={"/business/1"} key={business.name}>
+                    {business.name}
+                  </Link>
                 </TableCell>
                 <TableCell className="font-medium p-1 text-right">
-                  <FormBusiness type="edit" name={business.name} owner={"Thiago"}>
+                  <FormBusiness
+                    type="edit"
+                    name={business.name}
+                    owner={"Thiago"}
+                  >
                     <Button
                       variant={"secondary"}
                       className="p-0 m-0 h-4 w-4 mr-2"
@@ -76,10 +86,15 @@ const BusinessPage = () => {
                       <Edit className="rounded border h-4 w-4"></Edit>
                     </Button>
                   </FormBusiness>
-                  <AlertComponent alertDialogTitle={'Tem certeza?'} alertDialogDescription={`O Negócio ${business.name} será deletado!`} cancel={"Cancelar"} continue={"Sim"} >
-                  <Button variant={"destructive"} className="p-0 m-0 h-4 w-4">
-                    <X className="rounded border h-4 w-4"></X>
-                  </Button>
+                  <AlertComponent
+                    alertDialogTitle={"Tem certeza?"}
+                    alertDialogDescription={`O Negócio ${business.name} será deletado!`}
+                    cancel={"Cancelar"}
+                    continue={"Sim"}
+                  >
+                    <Button variant={"destructive"} className="p-0 m-0 h-4 w-4">
+                      <X className="rounded border h-4 w-4"></X>
+                    </Button>
                   </AlertComponent>
                 </TableCell>
               </TableRow>

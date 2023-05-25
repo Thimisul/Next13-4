@@ -68,7 +68,7 @@ const FormBusiness = (props: BusinessType) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                 <SelectItem  value="">Não faz</SelectItem>
+                  <SelectItem value="">Não faz</SelectItem>
                   <SelectItem value="1">JD</SelectItem>
                   <SelectItem value="2">Sala 1</SelectItem>
                   <SelectItem value="3">Sala 2</SelectItem>
@@ -79,15 +79,23 @@ const FormBusiness = (props: BusinessType) => {
             </Select>
 
             <DialogHeader className="col-span-12 ">
-          <DialogTitle>Participantes</DialogTitle>
-          <DialogDescription>Usuários que fazem parte do Negócio</DialogDescription>
-          <MultiSelectComponent/>
-        </DialogHeader>
+              <DialogTitle>Participantes</DialogTitle>
+              <DialogDescription className="h-60">
+                Usuários que fazem parte do Negócio
+                <MultiSelectComponent />
+              </DialogDescription>
+            </DialogHeader>
           </div>
         </div>
         <DialogFooter className="grid grid-cols-12 items-center gap-4">
-        {props.type == 'edit' && <span className="text-muted-foreground text-sm col-span-8">Criado por: {props.owner}</span>}
-          <Button className="col-span-4" type="submit">Salvar</Button>
+          {props.type == "edit" && (
+            <span className="text-muted-foreground text-sm col-span-8">
+              Criado por: {props.owner}
+            </span>
+          )}
+          <Button className="col-span-4" type="submit">
+            Salvar
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

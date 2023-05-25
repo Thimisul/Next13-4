@@ -69,23 +69,6 @@
     --radius: 0.5rem;
   }
 
-  .rmsc.dark {
-    --rmsc-main: hsl(216 34% 17%);
-    --rmsc-hover: hsl(216 34% 17%);
-    --rmsc-selected: hsl(216 34% 17%);
-    --rmsc-border: hsl(216 34% 17%);
-    --rmsc-gray: hsl(216 34% 17%);
-    --rmsc-bg: --background;
-    --rmsc-p: 10px; /* Spacing */
-    --rmsc-radius: 6px; /* Radius */
-    --rmsc-h: 38px; /* Height */
-    color: var(--foreground);
-  }
-
-  .react-select__control{
-    background-color: brown
-  }
-
 }
 
 @layer base {

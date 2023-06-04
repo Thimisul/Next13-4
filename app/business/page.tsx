@@ -2,44 +2,27 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   Table,
-  TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowBigLeft, Edit, Plus, StepBack, X } from "lucide-react";
+import { ArrowBigLeft, Plus} from "lucide-react";
 import FormBusiness from "./form";
-import AlertComponent from "@/components/Alert";
 import Link from "next/link";
+import BusinessListComponent from "./list";
+
+export type businessType = {
+  title: string
+}
 
 const BusinessPage = () => {
-  const businessList = [
-    {
-      name: "JD",
-      initialValue: "",
-      businessFather: "",
-      owner: "Thiago",
-    },
-    {
-      name: "Sala 1",
-      initialValue: "",
-      businessFather: "1",
-    },
-    {
-      name: "Sala 2",
-      initialValue: "",
-      businessFather: "1",
-    },
-  ];
 
   return (
     <Card>
@@ -65,41 +48,7 @@ const BusinessPage = () => {
               <TableHead className="w-[80px] p-1">Ações</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {businessList.map((business) => (
-              <TableRow key={business.name}>
-                <TableCell className="font-medium p-1">
-                  <Link href={"/business/1"} key={business.name}>
-                    {business.name}
-                  </Link>
-                </TableCell>
-                <TableCell className="font-medium p-1 text-right">
-                  <FormBusiness
-                    type="edit"
-                    name={business.name}
-                    owner={"Thiago"}
-                  >
-                    <Button
-                      variant={"secondary"}
-                      className="p-0 m-0 h-4 w-4 mr-2"
-                    >
-                      <Edit className="rounded border h-4 w-4"></Edit>
-                    </Button>
-                  </FormBusiness>
-                  <AlertComponent
-                    alertDialogTitle={"Tem certeza?"}
-                    alertDialogDescription={`O Negócio ${business.name} será deletado!`}
-                    cancel={"Cancelar"}
-                    continue={"Sim"}
-                  >
-                    <Button variant={"destructive"} className="p-0 m-0 h-4 w-4">
-                      <X className="rounded border h-4 w-4"></X>
-                    </Button>
-                  </AlertComponent>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <BusinessListComponent></BusinessListComponent>
         </Table>
       </CardContent>
       <CardFooter className="flex justify-center"></CardFooter>

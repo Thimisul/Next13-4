@@ -5,57 +5,108 @@ import Image from "next/image";
 import { useState } from "react";
 //UI
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import router from "next/router";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const formSchema = z.object({
+  email: z.string().min(2).max(50),
+  password: z.string().min(6),
+});
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+const LoginForm = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Aqui você pode adicionar a lógica para fazer o login
-  };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try{
+      const res = await axios.post(`/api/login/`, values);
+      form.reset();
+    }catch(e){
+      console.log(e)
+    }
+  }
 
   return (
-      <Card className="border-none" >
+    <div className="flex flex-col items-center justify-center h-5/6">
+      <Image
+        src={"/images/MyBusiness.png"}
+        alt={"myBusinessLogo"}
+        width={200}
+        height={150}
+        className="py-10"
+      ></Image>
+
+      <Card className=" w-full sm:w-2/3 md:w-1/3 border-none">
         <CardHeader className="items-center">
-        <Image src={"/images/MyBusiness.png"} alt={"myBusinessLogo"} width={200} height={150} className="pb-10"></Image>
           <CardTitle>LOGIN</CardTitle>
           <CardDescription>Acesse seus negócios</CardDescription>
         </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">E-mail</Label>
-                <Input id="email" placeholder="Seu E-mail" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  placeholder="Sua Senha"
-                  type="password"
-                />
-              </div>
-            </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className="flex flex-col justify-center space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Seu email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Senha</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Sua Senha" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" type="submit">
+                Login
+              </Button>
+            </CardFooter>
           </form>
-        </CardContent>
-        <CardFooter className="flex justify-center">
-          <Button className="w-full mt-20">Deploy</Button>
-        </CardFooter>
-        </Card>
+        </Form>
+      </Card>
+    </div>
   );
 };
 
-export default Login;
+export default LoginForm;

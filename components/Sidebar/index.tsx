@@ -30,7 +30,7 @@ const SidebarComponent = () => {
     <div className="flex flex-col space-y-8">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant={"link"} className="h-12 w-12">
+          <Button variant={"link"} className="h-12 w-12" title="Menu">
             <Menu size={50}></Menu>
           </Button>
         </SheetTrigger>

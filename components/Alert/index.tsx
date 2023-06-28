@@ -1,25 +1,20 @@
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button, ButtonProps } from "@/components/ui/button";
 
-type userType = {
+type alertType = {
   children: React.ReactNode,
   alertDialogTitle: String,
   alertDialogDescription?: String,
-  cancel: string,
-  continue: string
+  AlertFooter: JSX.Element
 };
 
-export function AlertComponent(props: userType) {
+export function AlertComponent(props: alertType) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -32,10 +27,7 @@ export function AlertComponent(props: userType) {
            {props.alertDialogDescription}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>{props.cancel}</AlertDialogCancel>
-          <AlertDialogAction>{props.continue}</AlertDialogAction>
-        </AlertDialogFooter>
+        {props.AlertFooter}
       </AlertDialogContent>
     </AlertDialog>
   );

@@ -6,53 +6,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { ArrowBigLeft, Plus} from "lucide-react";
-import FormBusiness from "./form";
+import { ArrowBigLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import BusinessListComponent from "./list";
-
-export type businessType = {
-  title: string
-}
+import FormBusiness from "./form";
 
 const BusinessPage = () => {
-
   return (
-    <Card>
+    <div className="flex flex-col items-center justify-center h-5/6">
+    <Card className="w-full sm:w-2/3 md:w-2/3">
       <CardHeader>
-        <CardTitle className="flex flex-row justify-between ">
-          <Link href={"/"}>
-          <ArrowBigLeft className="w-6 h-6"></ArrowBigLeft>
+        <CardTitle className="flex flex-row justify-between">
+          <Link href={"/"} title="Voltar">
+            <ArrowBigLeft className="w-6 h-6"></ArrowBigLeft>
           </Link>
-          Negócios
-          <FormBusiness type="new" name="Novo Negócio">
-            <Button className="p-0 m-0 h-6 w-6 mr-2 ">
+          Usuários
+          <FormBusiness type="new">
+            <Button className="p-0 m-0 h-6 w-6 mr-2" title="Novo Usuário">
               <Plus className="p-0 m-0 h-6 w-6" />
             </Button>
           </FormBusiness>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Table className="text-xs">
-          <TableCaption>Lista de Negócios</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[280px] p-1">Nome</TableHead>
-              <TableHead className="w-[80px] p-1">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <BusinessListComponent></BusinessListComponent>
-        </Table>
+      <BusinessListComponent />
       </CardContent>
       <CardFooter className="flex justify-center"></CardFooter>
     </Card>
+    </div>
   );
 };
 

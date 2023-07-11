@@ -7,8 +7,8 @@ CREATE TABLE "User" (
     "name" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "password" VARCHAR(20) NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -16,12 +16,12 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Business" (
     "id" SMALLSERIAL NOT NULL,
-    "userOwner" INTEGER NOT NULL,
+    "userOwnerId" INTEGER NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "initialValue" MONEY NOT NULL DEFAULT 0,
     "businessId" INTEGER,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Business_pkey" PRIMARY KEY ("id")
 );
@@ -30,8 +30,8 @@ CREATE TABLE "Business" (
 CREATE TABLE "BusinessUsersParticipation" (
     "userId" INTEGER NOT NULL,
     "businessId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "BusinessUsersParticipation_pkey" PRIMARY KEY ("userId","businessId")
 );
@@ -46,8 +46,8 @@ CREATE TABLE "TransactionInOut" (
     "date" TIMESTAMP(3) NOT NULL,
     "description" VARCHAR(255) NOT NULL,
     "type" "TransactionType" NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "TransactionInOut_pkey" PRIMARY KEY ("cod")
 );
@@ -56,7 +56,7 @@ CREATE TABLE "TransactionInOut" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Business" ADD CONSTRAINT "Business_userOwner_fkey" FOREIGN KEY ("userOwner") REFERENCES "User"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Business" ADD CONSTRAINT "Business_userOwnerId_fkey" FOREIGN KEY ("userOwnerId") REFERENCES "User"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Business" ADD CONSTRAINT "Business_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE SET NULL ON UPDATE CASCADE;

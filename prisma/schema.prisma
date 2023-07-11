@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,58 +10,58 @@ datasource db {
 }
 
 model User {
-  id                        Int                                 @id @db.SmallInt @default(autoincrement())
-  name                      String                              @db.VarChar(255)
-  email                     String                              @unique @db.VarChar(255)
-  password                  String                              @db.VarChar(20)
-  createdAt                 DateTime?                           @default(now())
-  updatedAt                 DateTime?                           @updatedAt
-  business                  Business[]
-  transactionInOutOwner     TransactionInOut[]                  @relation("owner")
-  transactionInOutWith      TransactionInOut[]                  @relation("with")
-  businessParticipations    BusinessUsersParticipation[]
+  id                     Int                          @id @default(autoincrement()) @db.SmallInt
+  name                   String                       @db.VarChar(255)
+  email                  String                       @unique @db.VarChar(255)
+  password               String                       @db.VarChar(20)
+  createdAt              DateTime?                    @default(now())
+  updatedAt              DateTime?                    @updatedAt
+  business               Business[]                   @relation("BusinessUserOwner")
+  businessParticipations BusinessUsersParticipation[]
+  transactionInOutOwner  TransactionInOut[]           @relation("owner")
+  transactionInOutWith   TransactionInOut[]           @relation("with")
 }
 
 model Business {
-  id                        Int                                 @id @db.SmallInt @default(autoincrement())
-  userOwner                 Int
-  name                      String                              @db.VarChar(255)
-  initialValue              Decimal                             @db.Money @default(0)
-  businessId                Int?
-  createdAt                 DateTime?                           @default(now())
-  updatedAt                 DateTime?                           @updatedAt
-  User                      User                                @relation(fields: [userOwner], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  businessOwner             Business?                           @relation("BusinessOwnerDependents", fields: [businessId], references: [id])
-  businessDependents        Business[]                          @relation("BusinessOwnerDependents")
-  transactions              TransactionInOut[]
-  usersParticipations       BusinessUsersParticipation[]
+  id                  Int                          @id @default(autoincrement()) @db.SmallInt
+  userOwnerId         Int
+  name                String                       @db.VarChar(255)
+  initialValue        Decimal                      @default(0) @db.Money
+  businessId          Int?
+  createdAt           DateTime?                    @default(now())
+  updatedAt           DateTime?                    @updatedAt
+  businessOwner       Business?                    @relation("BusinessOwnerDependents", fields: [businessId], references: [id])
+  businessDependents  Business[]                   @relation("BusinessOwnerDependents")
+  userOwner           User                         @relation("BusinessUserOwner", fields: [userOwnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usersParticipations BusinessUsersParticipation[]
+  transactions        TransactionInOut[]
 }
 
 model BusinessUsersParticipation {
-  userId                    Int
-  businessId                Int
-  createdAt                 DateTime?                           @default(now())
-  updatedAt                 DateTime?                           @updatedAt
-  user                      User                                @relation(fields: [userId], references: [id])
-  business                  Business                            @relation(fields: [businessId], references: [id])
+  userId     Int
+  businessId Int
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  business   Business  @relation(fields: [businessId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
 
   @@id([userId, businessId])
 }
 
 model TransactionInOut {
-  cod                       Int                                 @id @db.SmallInt @default(autoincrement())
-  businessOwnerId           Int
-  userOwnerId               Int
-  withUserId                Int
-  value                     Decimal                             @db.Money
-  date                      DateTime
-  description               String                              @db.VarChar(255)
-  type                      TransactionType
-  createdAt                 DateTime?                           @default(now())
-  updatedAt                 DateTime?                           @updatedAt
-  userOwner                 User                                @relation("owner", fields: [userOwnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  userWith                  User                                @relation("with",fields: [withUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  businessOwner             Business                            @relation( fields: [businessOwnerId], references: [id])
+  cod             Int             @id @default(autoincrement()) @db.SmallInt
+  businessOwnerId Int
+  userOwnerId     Int
+  withUserId      Int
+  value           Decimal         @db.Money
+  date            DateTime
+  description     String          @db.VarChar(255)
+  type            TransactionType
+  createdAt       DateTime?       @default(now())
+  updatedAt       DateTime?       @updatedAt
+  businessOwner   Business        @relation(fields: [businessOwnerId], references: [id])
+  userOwner       User            @relation("owner", fields: [userOwnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userWith        User            @relation("with", fields: [withUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum TransactionType {
